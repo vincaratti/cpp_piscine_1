@@ -6,79 +6,86 @@
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 11:18:46 by vcaratti          #+#    #+#             */
-/*   Updated: 2025/11/21 11:19:16 by vcaratti         ###   ########.fr       */
+/*   Updated: 2025/11/24 12:44:31 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "handlers.hpp"
+#include "predicates.hpp"
 
-void	handleChar( std::string& str )
+void	handleChar( std::string& str, std::ostream& stream )
 {
 	char	c = str[0];
-	int	i = (int)c;
-	float	f = i;
-	double	d = i;
+	int	i = c;
+	float	f = c;
+	double	d = c;
 
-	std::cout <<	"char: " << c << std::endl <<
+	stream <<	"char: " << c << std::endl <<
 			"int: " << i << std::endl <<
 			"float: " << f << "f" << std::endl <<
 			"double: " << d << std::endl ;
 }
 
-void	handleInt( std::string& str )
+void	handleInt( std::string& str, std::ostream& stream )
 {
-	double	d = std::atof(str.c_str());
-	float	f = d;
-	int	i = d;
-	
-	if ( i > 32 && i < 126 )
-		std::cout << "char: " << (char)i << std::endl;
+	int	i = std::atoi( str.c_str() );
+	float	f = i;
+	double	d = i;
+	char	c = static_cast<char>(i);
+
+	if ( isDisplayable(c) )
+		stream << "char: " << c << std::endl;
 	else
-		std::cout << "char: Non displayable" << std::endl;
-	std::cout <<	"int: " << i << std::endl <<
+		stream << "char: Non displayable" << std::endl;
+	stream <<	"int: " << i << std::endl <<
 			"float: " << f << "f" << std::endl <<
 			"double: " << d << std::endl ;
 }
 
-void	handleFloat( std::string& str )
+void	handleFloat( std::string& str, std::ostream& stream )
 {
-	double	d = std::atof(str.c_str());
-	float	f = d;
-	int	i = d;
+	float	f = static_cast<float>(std::atof(str.c_str()));
+	double	d = f;
+	int	i = static_cast<int>(f);
+	char	c = static_cast<char>(f);
 	
-	if ( i > 32 && i < 126 )
-		std::cout << "char: " << (char)i << std::endl;
+	if ( isDisplayable(c) )
+		stream << "char: " << c << std::endl;
 	else
-		std::cout << "char: Non displayable" << std::endl;
-	std::cout <<	"int: " << i << std::endl <<
+		stream << "char: Non displayable" << std::endl;
+	stream <<	"int: " << i << std::endl <<
 			"float: "  << f << "f" << std::endl <<
 			"double: " << d << std::endl ;
 }
 
-void	handleDouble( std::string& str )
+void	handleDouble( std::string& str, std::ostream& stream )
 {
 	double	d = std::atof(str.c_str());
-	float	f = d;
-	int	i = d;
+	float	f = static_cast<float>(d);
+	int	i = static_cast<int>(d);
+	char	c = static_cast<char>(d);
 	
-	if ( i > 32 && i < 126 )
-		std::cout << "char: " << (char)i << std::endl;
+	if ( isDisplayable(c) )
+		stream << "char: " << c << std::endl;
 	else
-		std::cout << "char: Non displayable" << std::endl;
-	std::cout <<	"int: " << i << std::endl <<
+		stream << "char: Non displayable" << std::endl;
+	stream <<	"int: " << i << std::endl <<
 			"float: " << f << "f" << std::endl <<
 			"double: " << d << std::endl ;
 }
 
-void	handlePseudo( std::string& str )
+void	handlePseudo( std::string& str, std::ostream& stream )
 {
-	std::cout <<	"char: impossible" << std::endl <<
+	double	d = std::atof( str.c_str() );
+	float	f = static_cast<float>(d);
+
+	stream <<	"char: impossible" << std::endl <<
 			"int: impossible" << std::endl <<
-			"float: " << str << "f" << std::endl <<
-			"double: " << str << std::endl ;	
+			"float: " << f << "f" << std::endl <<
+			"double: " << d << std::endl ;	
 }
 
-void	handleError( std::string& str )
+void	handleError( std::string& str, std::ostream& stream )
 {
-	std::cout<<"Input does not make sense: " << str << std::endl;
+	stream<<"Input does not make sense: " << str << std::endl;
 }

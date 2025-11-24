@@ -6,7 +6,7 @@
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:34:27 by vcaratti          #+#    #+#             */
-/*   Updated: 2025/11/21 11:19:22 by vcaratti         ###   ########.fr       */
+/*   Updated: 2025/11/24 12:47:55 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,30 @@ int	getType( std::string& str )
 
 void	ScalarConverter::convert( std::string str )
 {
+	std::ostream&	stream = std::cout;
+	stream << std::setprecision(std::numeric_limits<double>::digits10 + 1);
+
 	if ( str.size() < 1 )
 		return ;//
 	switch ( getType( str ) )
 	{
 		case 0:
-			handleChar( str );
+			handleChar( str, stream );
 			break;
 		case 1:
-			handleInt( str );
+			handleInt( str, stream );
 			break;
 		case 2:
-			handleFloat( str );
+			handleFloat( str, stream );
 			break;
 		case 3:
-			handleDouble( str );
+			handleDouble( str, stream );
 			break;
 		case 4:
-			handlePseudo( str );
+			handlePseudo( str, stream );
 			break;
 		case 5:
-			handleError( str );
+			handleError( str, stream );
 			break;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 11:21:42 by vcaratti          #+#    #+#             */
-/*   Updated: 2025/11/21 11:22:54 by vcaratti         ###   ########.fr       */
+/*   Updated: 2025/11/24 12:48:14 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,3 +17,4 @@
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
+#include <limits>

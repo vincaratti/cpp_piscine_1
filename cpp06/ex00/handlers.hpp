@@ -6,7 +6,7 @@
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 11:19:37 by vcaratti          #+#    #+#             */
-/*   Updated: 2025/11/21 11:23:11 by vcaratti         ###   ########.fr       */
+/*   Updated: 2025/11/24 12:42:58 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 #include "includes.hpp"
 
-void	handleChar( std::string& str );
-void	handleInt( std::string& str );
-void	handleFloat( std::string& str );
-void	handleDouble( std::string& str );
-void	handlePseudo( std::string& str );
-void	handleError( std::string& str );
+void	handleChar( std::string& str, std::ostream& stream );
+void	handleInt( std::string& str, std::ostream& stream );
+void	handleFloat( std::string& str, std::ostream& stream );
+void	handleDouble( std::string& str, std::ostream& stream );
+void	handlePseudo( std::string& str, std::ostream& stream );
+void	handleError( std::string& str, std::ostream& stream );
