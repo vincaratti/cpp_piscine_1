@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Data.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vcaratti <vcaratti@student.s19>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 13:34:47 by vcaratti          #+#    #+#             */
-/*   Updated: 2025/11/25 10:50:25 by vcaratti         ###   ########.fr       */
+/*   Created: 2025/11/25 11:01:55 by vcaratti          #+#    #+#             */
+/*   Updated: 2025/11/25 11:02:42 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Serializer.hpp"
+#include <string>
 
-int main(void)
+typedef struct	Data_s
 {
-	Data	d;
-	d.data = "hello";
+	std::string	data;
 
-	uintptr_t	uptr;
-	uptr = Serializer::serialize(&d);
-	
-	std::cout << "string: " << (Serializer::deserialize(uptr))->data << std::endl;
-}
+}	Data;
+

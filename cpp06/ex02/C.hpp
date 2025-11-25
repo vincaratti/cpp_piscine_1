@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.cpp                                     :+:      :+:    :+:   */
+/*   C.hpp                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 13:26:13 by vcaratti          #+#    #+#             */
-/*   Updated: 2025/11/25 11:00:47 by vcaratti         ###   ########.fr       */
+/*   Created: 2025/11/25 11:06:32 by vcaratti          #+#    #+#             */
+/*   Updated: 2025/11/25 12:12:31 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Serializer.hpp"
+#pragma once
 
-Serializer::Serializer( void ){}
+#include "Base.hpp"
 
-Serializer::Serializer( const Serializer& other ){(void)other;}
-
-Serializer&	Serializer::operator=( const Serializer& other ){(void)other; return (*this);}
-
-uintptr_t	Serializer::serialize( Data* ptr )
+class C : public Base
 {
-	return ((uintptr_t)(void *)ptr);
-}
 
-Data*		Serializer::deserialize( uintptr_t raw )
-{
-	return ((Data *)(void *)raw);
-}
+};
+
