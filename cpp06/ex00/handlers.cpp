@@ -87,5 +87,5 @@ void	handlePseudo( std::string& str, std::ostream& stream )
 
 void	handleError( std::string& str, std::ostream& stream )
 {
-	stream<<"Input does not make sense: " << str << std::endl;
+	stream<< "Input \""<< str <<"\" is not valid." << std::endl;
 }

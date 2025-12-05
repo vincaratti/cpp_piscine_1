@@ -43,25 +43,35 @@ void	ScalarConverter::convert( std::string str )
 	stream << std::setprecision(std::numeric_limits<double>::digits10 + 1);
 
 	if ( str.size() < 1 )
-		return ;//
-	switch ( getType( str ) )
+		return ;
+
+	int	type = getType( str );
+
+	stream << "Detected type: ";
+	switch ( type )
 	{
 		case 0:
+			stream << "char" << std::endl;
 			handleChar( str, stream );
 			break;
 		case 1:
+			stream << "int" << std::endl;
 			handleInt( str, stream );
 			break;
 		case 2:
+			stream << "float" << std::endl;
 			handleFloat( str, stream );
 			break;
 		case 3:
+			stream << "double" << std::endl;
 			handleDouble( str, stream );
 			break;
 		case 4:
+			stream << "Pseudo" << std::endl;
 			handlePseudo( str, stream );
 			break;
 		case 5:
+			stream << "Error" << std::endl;
 			handleError( str, stream );
 			break;
 	}

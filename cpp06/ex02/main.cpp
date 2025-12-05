@@ -6,7 +6,7 @@
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 11:37:09 by vcaratti          #+#    #+#             */
-/*   Updated: 2025/11/25 12:21:02 by vcaratti         ###   ########.fr       */
+/*   Updated: 2025/12/02 14:29:15 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,6 @@ int main( void )
 
 	identify( ptr );
 	identify( ref );
+
+	delete ptr;
 }

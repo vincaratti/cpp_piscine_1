@@ -19,6 +19,13 @@ int main(void)
 
 	uintptr_t	uptr;
 	uptr = Serializer::serialize(&d);
-	
-	std::cout << "string: " << (Serializer::deserialize(uptr))->data << std::endl;
+	Data*	d_ptr = Serializer::deserialize(uptr);
+
+	std::cout << "Object before serialization:\t" << d.data << std::endl << std::endl;
+	std::cout << "Data structure address:\t\t" << &d << std::endl;
+	std::cout << "intptr_t:\t\t\t" << uptr << std::endl;
+	std::cout << "Data ptr post serialization:\t" << d_ptr << std::endl << std::endl;
+	std::cout << "Object after serialization:\t" << d_ptr->data << std::endl;
+
+	return ( 0 );
 }

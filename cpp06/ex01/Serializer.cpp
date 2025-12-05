@@ -6,7 +6,7 @@
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 13:26:13 by vcaratti          #+#    #+#             */
-/*   Updated: 2025/11/25 11:00:47 by vcaratti         ###   ########.fr       */
+/*   Updated: 2025/12/02 14:28:52 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ Serializer&	Serializer::operator=( const Serializer& other ){(void)other; return
 
 uintptr_t	Serializer::serialize( Data* ptr )
 {
-	return ((uintptr_t)(void *)ptr);
+	return ( reinterpret_cast<uintptr_t>(ptr) );
 }
 
 Data*		Serializer::deserialize( uintptr_t raw )
 {
-	return ((Data *)(void *)raw);
+	return ( reinterpret_cast<Data *>(raw) );
 }
