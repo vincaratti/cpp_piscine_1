@@ -1,12 +1,11 @@
-NAME		=	ex01
+NAME		=	ex02
 CC		= 	c++
 CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -I $(INCLUDE) -ggdb3 -fsanitize=address
 SRCDIR		=	./
 OBJDIR		=	./obj/
 INCLUDE		=	./
 
-SRC		=	main.cpp	\
-			Span.cpp
+SRC		=	main.cpp
 	
 OBJ		=	${addprefix $(OBJDIR), $(SRC:%.cpp=%.o)}
 

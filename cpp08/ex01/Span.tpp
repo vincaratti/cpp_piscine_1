@@ -12,11 +12,10 @@
 
 #include "Span.hpp"
 
-template <typename T> void	Span::insertRange( T::iterator start, T::iterator end )
+template <typename T> void	Span::insertRange( typename T::const_iterator start, typename T::const_iterator end )
 {
-	if ( std::distance( start, end ) + this->data.size() > this->max_size )
+	if ( this->data.size() + std::distance( start, end ) > max_size )
 		throw SizeLimitExceededException();
-	while ( start != end )
-		this->data.push_back( *start++ );
-	this->data.push_back( start ); //??
+	data.insert(this->data.end(), start, end);
+	std::sort( this->data.begin(), this->data.end() );
 }
