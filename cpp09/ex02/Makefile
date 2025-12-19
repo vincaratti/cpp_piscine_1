@@ -1,4 +1,4 @@
-NAME		=	ex02
+NAME		=	PmergeMe
 CC		= 	c++
 CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -I $(INCLUDE) #-ggdb3 -fsanitize=address
 SRCDIR		=	./
