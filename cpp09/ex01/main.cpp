@@ -6,8 +6,15 @@
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 11:02:23 by vcaratti          #+#    #+#             */
-/*   Updated: 2025/12/19 11:02:29 by vcaratti         ###   ########.fr       */
+/*   Updated: 2025/12/22 12:18:40 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "RPN.hpp"
 
+int main(void)
+{
+	RPN tmp("1 2 +");
+
+	return (0);
+}
