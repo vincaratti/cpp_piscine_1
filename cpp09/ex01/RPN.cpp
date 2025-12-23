@@ -6,7 +6,7 @@
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 11:02:32 by vcaratti          #+#    #+#             */
-/*   Updated: 2025/12/22 14:08:22 by vcaratti         ###   ########.fr       */
+/*   Updated: 2025/12/23 13:41:40 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ RPN&	RPN::operator=( const RPN &other ){ std::stack<char>::operator=(other); ret
 
 int	RPN::execute( void )
 {
-	return (0);		
+	return (rpn());		
 }
 
 int	RPN::execute( std::string input )
@@ -33,27 +33,59 @@ int	RPN::execute( std::string input )
 	return ( tmp.execute() );
 }
 
-bool	RPN::_is_valid( char c ) const
+bool	RPN::_is_op( char c )
 {
-	if ( (c < '0' || c > '9') && c != '+' && c != '-' && c != '*' && c != '/' && c != ' ')
-		return ( 0 );
-	return ( 1 );
+	return ( ( c == '+' || c == '-' || c == '*' || c == '/' ) ? 1 : 0 );
 }
 
-void	RPN::_push_if( char c )
+bool	RPN::_is_not_valid( char c )
 {
-	if ( c != ' ' )
-		this->push(c);
+	return ( ( ( c >= '0' && c <= '9' ) || RPN::_is_op(c) || c == ' ') ? 0 : 1 );
 }
 
-void	RPN::_fill( std::string &input )
+void	RPN::_fill( std::string input ) //cannot fill stack using STL without it taking 20+ lines
 {
-	if ( std::find_if( input.begin(), input.end(), RPN::_is_valid ) != input.end() )
+	if ( std::find_if( input.begin(), input.end(), RPN::_is_not_valid ) != input.end() )
 		throw InvalidCharacterException();
-	std::for_each( input.begin(), input.end(), RPN::_push_if );
+	std::string::iterator new_end = std::remove(input.begin(), input.end(), ' ');
+	for ( std::string::iterator it = input.begin(); it != new_end; ++it )
+		this->push( *it );
+}
+
+char	RPN::tpop( void )
+{
+	char	top = this->top();
+	this->pop();
+	return ( top );
+}
+
+int	RPN::rpn( void )
+{
+	if ( empty() )
+		throw InvalidInputException();
+	char	top = tpop();
+	if (  !_is_op( top ) )
+		return ( (top - '0') );
+
+	int	right = rpn();
+	int	left = rpn();
+
+	if ( top == '+' )
+		return ( left + right );
+	if ( top == '-' )
+		return ( left - right );
+	if ( top == '*' )
+		return ( left * right );
+	return ( left / right );
+	
 }
 
 const char*	RPN::InvalidCharacterException::what() const throw()
 {
-	return ( "invalid character in input." );
+	return ( "Invalid character in input." );
+}
+
+const char*	RPN::InvalidInputException::what() const throw()
+{
+	return ( "Invalid input." );
 }
