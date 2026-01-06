@@ -24,7 +24,10 @@ RPN&	RPN::operator=( const RPN &other ){ std::stack<char>::operator=(other); ret
 
 int	RPN::execute( void )
 {
-	return (rpn());		
+	int	ret = rpn();
+	if ( !this->empty() )
+		throw InvalidInputException();
+	return ( ret );		
 }
 
 int	RPN::execute( std::string input )
