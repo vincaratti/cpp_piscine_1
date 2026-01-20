@@ -6,7 +6,7 @@
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 11:02:32 by vcaratti          #+#    #+#             */
-/*   Updated: 2025/12/23 13:41:40 by vcaratti         ###   ########.fr       */
+/*   Updated: 2026/01/12 10:50:39 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int	RPN::rpn( void )
 		return ( left - right );
 	if ( top == '*' )
 		return ( left * right );
+	if ( right == 0 )
+		throw DivideByZeroException();
 	return ( left / right );
 	
 }
@@ -91,4 +93,9 @@ const char*	RPN::InvalidCharacterException::what() const throw()
 const char*	RPN::InvalidInputException::what() const throw()
 {
 	return ( "Invalid input." );
+}
+
+const char*	RPN::DivideByZeroException::what() const throw()
+{
+	return ( "Cannot divide by zero." );
 }

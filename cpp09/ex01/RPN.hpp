@@ -6,7 +6,7 @@
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 11:02:39 by vcaratti          #+#    #+#             */
-/*   Updated: 2025/12/23 13:20:07 by vcaratti         ###   ########.fr       */
+/*   Updated: 2026/01/12 10:48:33 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ static	int	execute( std::string input );
 	};
 
 	class	InvalidInputException : public std::exception
+	{
+	public:
+		virtual const char* what() const throw();
+	};
+
+	class	DivideByZeroException : public std::exception
 	{
 	public:
 		virtual const char* what() const throw();
