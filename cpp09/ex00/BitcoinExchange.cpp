@@ -6,7 +6,7 @@
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 11:01:29 by vcaratti          #+#    #+#             */
-/*   Updated: 2026/01/20 13:43:44 by vcaratti         ###   ########.fr       */
+/*   Updated: 2026/01/21 10:42:18 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	isValidDate( const std::string& date )
 	}
 	int	m = std::atoi( date.substr(5,2).c_str() );
 	int	d = std::atoi( date.substr(8,2).c_str() );
-	if ( m <= 0 || m >= 12 || d <= 0 || d >= 31 ) //doesnt check for days of the month,
+	if ( m <= 0 || m > 12 || d <= 0 || d > 31 )
 		return 0;
 	return 1;
 	
@@ -53,7 +53,10 @@ void	parserDB( const std::string& fn, std::map< std::string, double >& map )
 
 		date = line.substr(0, 10);
 		if  ( !isValidDate( date ) )
-			throw BitcoinExchange::BadFormatException( "Incorrect date in database" );
+		{
+			std::string	ret = "Incorect date in database: " + date;
+			throw BitcoinExchange::BadFormatException( ret.c_str() );
+		}
 
 		value = line.substr(11);
 		std::stringstream	tmp_ss( value );
@@ -63,7 +66,6 @@ void	parserDB( const std::string& fn, std::map< std::string, double >& map )
 			throw BitcoinExchange::BadFormatException( "Encountered failure whilst parsing database" );
 		if ( tmp_d > INT_MAX || tmp_d < 0 )
 			throw BitcoinExchange::BadFormatException( "Invalid Value in database" );
-
 		map[date] = tmp_d;
 	}
 }
@@ -73,6 +75,9 @@ void	decrementDate( std::string& date )
 	int	y = std::atoi(date.substr(0, 4).c_str());
 	int	m = std::atoi(date.substr(5, 2).c_str());
 	int	d = std::atoi(date.substr(8, 2).c_str());
+	
+	if ( y == 0 && m == 0 && d == 0 )
+		throw BitcoinExchange::BadFormatException("Date in input cant be older than big J");
 
 	if ( d > 1 )
 		--d;
@@ -87,8 +92,10 @@ void	decrementDate( std::string& date )
 			--y;
 		}
 	}
-	std::stringstream	res;
-	res << y << '-' << m << '-' << d;
+	std::ostringstream	res;
+	res	<< std::setw(4) << std::setfill('0') << y << '-'
+		<< std::setw(2) << std::setfill('0') << m << '-'
+		<< std::setw(2) << std::setfill('0') << d;
 	date = res.str();
 }
 
@@ -100,7 +107,7 @@ double	exchange( std::map< std::string, double>& map, std::string date, double v
 	while ( go )
 	{
 		try {
-			ratio = map[date];
+			ratio =  map.at(date);
 			go = 0;
 		} catch ( std::exception &e )
 		{
@@ -122,6 +129,11 @@ void	inputExecutor( const std::string& fn, std::map< std::string, double>& map )
 	{
 		if ( line.empty() || line == "date | value" )
 			continue;
+		if ( line.size() < 14 )
+		{
+			std::cout << "Error: bad input => " << line << std::endl;
+			continue;
+		}
 		if ( line.find( '|' ) != 11 || line.at(12) != ' ' || line.at(10) != ' ' )
 		{
 			std::cout << "Error: bad format.\n";

@@ -6,7 +6,7 @@
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 11:02:00 by vcaratti          #+#    #+#             */
-/*   Updated: 2026/01/20 13:38:23 by vcaratti         ###   ########.fr       */
+/*   Updated: 2026/01/21 10:40:36 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <sstream>
 #include <map>
