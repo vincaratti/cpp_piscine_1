@@ -6,7 +6,7 @@
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 11:02:48 by vcaratti          #+#    #+#             */
-/*   Updated: 2026/01/23 13:41:14 by vcaratti         ###   ########.fr       */
+/*   Updated: 2026/01/26 10:42:47 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int main( int argc, char** argv )
 		if ( stream.fail() || !stream.eof() || tmp.at(0) == '-' )
 		{
 			std::cerr << "Error: bad argument: " << tmp << std::endl;
+			delete[] array;
 			return 1;
 		}
 	}
@@ -56,6 +57,8 @@ int main( int argc, char** argv )
 	PmergeMe::mergeSort_list( array, argc - 1 );
 	gettimeofday( &end, 0 );
 	printTimeDiff( start, end, "list", argc - 1 );
+
+	delete[] array;
 
 	return 0;
 }
