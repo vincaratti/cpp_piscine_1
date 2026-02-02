@@ -12,54 +12,33 @@
 
 #include "PmergeMe.hpp" 
 
-void	PmergeMe::mergeSort_vect( unsigned int* arr, const size_t n, bool print )
+	Node::Node( void ): next( NULL ), inferior( NULL ), val( 0 ){}
+
+	Node::Node( const Node& other ): next( other.next ), inferior( other.inferior ), val( other.val ){}
+
+	Node::~Node( void ){}
+
+Node&	Node::operator=( const Node& other )
 {
-	std::vector< unsigned int >	vect;
-
-	for ( size_t i = 0; i < n; i++ )
-		vect.push_back( arr[i] );
-
-	if ( print )
-	{
-		std::cout << "Before: ";
-		for ( std::vector< unsigned int >::iterator it = vect.begin(); it != vect.end(); ++it )
-			std::cout << *it << " ";
-		std::cout << std::endl;
-	}
-
-	mergeSort< std::vector< unsigned int > >( vect.begin(), --vect.end() );
-
-	if ( print )
-	{
-		std::cout << "After: ";
-		for ( std::vector< unsigned int >::iterator it = vect.begin(); it != vect.end(); ++it )
-			std::cout << *it << " ";
-		std::cout << std::endl;
-	}
+	this->next = other.next;
+	this->inferior = other.inferior;
+	this->val = other.val;
+	return ( *this );
 }
 
-void	PmergeMe::mergeSort_list( unsigned int* arr, const size_t n, bool print )
+size_t	jacob_n( unsigned int n )
 {
-	std::list< unsigned int >	list;
+	if ( n == 0 || n == 1 )
+		return n;
+	size_t	j0 = 0;
+	size_t	j1 = 1;
+	size_t	jn;
 
-	for ( size_t i = 0; i < n; i++ )
-		list.push_back( arr[i] );
-
-	if ( print )
+	for ( size_t i = 2; i <= n; ++i )
 	{
-		std::cout << "Before: ";
-		for ( std::list< unsigned int >::iterator it = list.begin(); it != list.end(); ++it )
-			std::cout << *it << " ";
-		std::cout << std::endl;
+		jn = j1 + ( 2 * j0 );
+		j0 = j1;
+		j1 = jn;
 	}
-
-	mergeSort< std::list< unsigned int > >( list.begin(), --list.end() );
-	
-	if ( print )
-	{
-		std::cout << "After: ";
-		for ( std::list< unsigned int >::iterator it = list.begin(); it != list.end(); ++it )
-			std::cout << *it << " ";
-		std::cout << std::endl;
-	}
+	return jn;
 }

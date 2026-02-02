@@ -19,69 +19,127 @@
 #include <string>
 #include <sstream>
 
-class	PmergeMe
+size_t	jacob_n( unsigned int n );
+
+class Node
 {
+private:
+		Node( void );
 public:
-	static void	mergeSort_vect( unsigned int* arr, const size_t n, bool print = 0 );
-	static void	mergeSort_list( unsigned int* arr, const size_t n, bool print = 0 );
+	Node		*next;
+	Node		*inferior;
+	unsigned int	val;
+
+		Node( const Node& other );
+		~Node( void );
+	Node&	operator=( const Node& other );
 };
 
 template < typename T >
-typename T::iterator	getMidIt( typename T::iterator start, typename T::iterator end )
+class PmergeMe
 {
-	size_t	dist = (std::distance( start, end ) - 1) / 2;
-	while ( dist-- )
-		start++;
-	return ( start );
+private:
+		//PmergeMe( void );
+
+	typename T< Node >&	G_cont;
+	typename T< Node >	L_cont;
+public:
+		PmergeMe( const PmergeMe& other );
+		PmergeMe( typename T< Node >& input );
+		~PmergeMe( void );
+	PmergeMe& operator=( const PmergeMe& other );	
+};
+
+//template < typename T >
+//	PmergeMe::PmergeMe( void )
+
+template < typename T >
+	PmergeMe::PmergeMe( const PmergeMe& other ): G_cont( other.G_cont ), L_cont( other.L_cont ){}
+
+template < typename T >
+	PMergeMe::PmergeMe( typename T< Node >& input ): G_cont( input )
+{
+	if ( G_cont.size() > 1 )
+	{
+		_split();
+		PmergeMe rec = PmergeMe( this->G_cont );
+	}
+	_merge_list();/////////////////!!!!!!!!!!!!!!!
+	_merge_vect();
 }
 
 template < typename T >
-void	merge( typename T::iterator left, typename T::iterator mid, typename T::iterator right )
+void	PmergeMe::_split( void )
 {
-	T	left_cont;
-	typename T::iterator it_fill = left;
-	while (1)
-	{
-		left_cont.push_back( *it_fill );
-		if ( it_fill++ == mid )
-			break;
-	}
-	T	right_cont;
-	while (1)
-	{
-		right_cont.push_back( *it_fill );
-		if ( it_fill++ == right )
-			break;
-	}
-	
-	typename T::iterator	l_it = left_cont.begin();
-	typename T::iterator	r_it = right_cont.begin();
-	typename T::iterator	insert_it = left;
+	size_t	count = 0;
+	Node*	prev;
 
-	while ( l_it != left_cont.end() && r_it != right_cont.end() )
+	for ( typename T< Node >::iterator it = G_cont.begin(); it != G_cont.end(); it++ )
 	{
-		if ( *l_it <= *r_it )
-			*insert_it++ = *l_it++;
+		if ( count % 2 )
+		{
+			if ( *it.val >= prev.val )
+			{
+				prev.next = *it.inferior;
+				*it.inferior = &prev;
+				L_cont.push_back( Node( prev ) );
+				it = G_cont.erase( it );
+			}
+			else
+			{
+				*it.next = prev.inferior;
+				prev.inferior = &(*it);
+				L_cont.push_back( Node( *it ) );
+				it = G_cont.erase( --it );
+				it++;
+			}
+		}
 		else
-			*insert_it++ = *r_it++;
+			prev = *it;
+
+		count++;
 	}
-	while ( l_it != left_cont.end() )
-		*insert_it++ = *l_it++;
-	while ( r_it != right_cont.end() )
-		*insert_it++ = *r_it++;	
+	if ( count % 2 )
+	{
+		L_cont.push_back( G_cont.back() );
+		G_cont.pop_back();
+	}	
 }
 
 template < typename T >
-void	mergeSort( typename T::iterator left, typename T::iterator right )
+void	PmergeMe::_b_insert( typename T<Node>::iterator end, Node& node )
 {
-	if ( std::distance( left, right ) <= 0 )
-		return ;
-
-	typename T::iterator	mid = getMidIt<T>( left, right );
-
-	mergeSort<T>( left, mid );
-	mergeSort<T>( ++mid , right );
 	
-	merge<T>( left, --mid, right );
+}
+
+template < typename T >
+void	PmergeMe::_merge_list( void )
+{
+	//typename T<Node *>		toMerge;
+	typename T< typename T<Node>::iterator >	toMergeIts;
+	typename T<Node>::iterator	it = G_cont.begin();
+	size_t				count = 1;
+	size_t				jn;
+
+	while ( it != G_cont.end() )
+	{
+		jn = jacob_n( count );
+		while ( jn-- && it != G_cont.end() )
+		{
+			//toMerge.push_back( &(*it) )
+			toMergeIts.push_back( it );
+			it++;
+		}
+		for ( typename T< typename T<Node>::iterator>::iterator itr = toMerge.rbegin(); itr != toMerge.rend(); ++itr )
+		{
+			Node&	toInsert = *(*itr).inferior;
+			*(*(*itr).inferior = toInsert.next;
+			toInsert.next = NULL;
+	
+			_b_insert( *itr, toInsert );
+		}
+		toMerge.clear();
+		count++;
+	}
 }
 
