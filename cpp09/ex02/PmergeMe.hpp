@@ -6,7 +6,7 @@
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 11:03:14 by vcaratti          #+#    #+#             */
-/*   Updated: 2026/01/23 13:20:22 by vcaratti         ###   ########.fr       */
+/*   Updated: 2026/02/03 12:56:53 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ size_t	jacob_n( unsigned int n );
 class Node
 {
 private:
+	bool	_inserted;
 		Node( void );
 public:
 	Node		*next;
@@ -113,6 +114,17 @@ void	PmergeMe::_b_insert( typename T<Node>::iterator end, Node& node )
 }
 
 template < typename T >
+typename T<Node>::iterator	_get_insert_iter( size_t index )
+{
+	for ( typename T<Node>::iterator it = G_cont.begin(); it != G_cont.end() && index != 0; ++it )
+	{
+		if !( *itr._inserted )
+			index--;
+	}
+	return it;
+}
+
+template < typename T >
 void	PmergeMe::_merge_list( void )
 {
 	//typename T<Node *>		toMerge;
@@ -142,4 +154,45 @@ void	PmergeMe::_merge_list( void )
 		count++;
 	}
 }
+
+template < typename T >
+void	PmergeMe::_merge_vect( void )
+{
+	size_t	jn = 0;
+	size_t	j_count = 1;
+	size_t	index = 0;
+	size_t	G_size = G_cont.size();
+	typename T<Node*>		toMerge;
+
+	for ( typename T<Node>::iterator it = G_cont.begin(); it != G_cont.end(); ++it )
+		toMerge.push_back( *it.inferior );
+
+	typename T<Node*>::iterator	it = toMerge.begin();
+	while (1)
+	{
+		jn = jacob_n( j_count );
+		jn_c = jn;
+		while ( jn_c-- && it != toMerge.end() )
+		{
+			it++;
+			index++;
+		}
+
+		typename T<Node*>::iterator	it_c = it;
+		typename T<Node>::iterator	g_insert_it;
+		Node*				tmp = NULL;
+	
+		size_t	i = 1;
+		while ( i <= jn )
+		{
+			*(*--it_c)._inserted = 1;
+			g_insert_it = _get_insert_iter( index - i );
+			_b_insert( g_insert_it, *(*it_c) );
+		}
+		count++;
+	}
+	for ( typename T<Node>::iterator flag_removal = G_cont.begin(); flag_removal != G_cont.end(); ++flag_removal )
+		*flag_removal._inserted = 0;
+}
+
 

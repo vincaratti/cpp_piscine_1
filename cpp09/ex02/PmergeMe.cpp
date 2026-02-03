@@ -6,20 +6,21 @@
 /*   By: vcaratti <vcaratti@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 11:03:09 by vcaratti          #+#    #+#             */
-/*   Updated: 2026/01/23 13:05:26 by vcaratti         ###   ########.fr       */
+/*   Updated: 2026/02/03 10:00:45 by vcaratti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp" 
 
-	Node::Node( void ): next( NULL ), inferior( NULL ), val( 0 ){}
+	Node::Node( void ): _inserted( 0 ), next( NULL ), inferior( NULL ), val( 0 ){}
 
-	Node::Node( const Node& other ): next( other.next ), inferior( other.inferior ), val( other.val ){}
+	Node::Node( const Node& other ): _inserted( other._inserted ), next( other.next ), inferior( other.inferior ), val( other.val ){}
 
 	Node::~Node( void ){}
 
 Node&	Node::operator=( const Node& other )
 {
+	this->_inserted = other._inserted ;
 	this->next = other.next;
 	this->inferior = other.inferior;
 	this->val = other.val;
